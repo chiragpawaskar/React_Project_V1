@@ -1,0 +1,42 @@
+.card-container {
+  background: var(--bg-card);
+  backdrop-filter: var(--backdrop-blur);
+  -webkit-backdrop-filter: var(--backdrop-blur);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
+  transition: box-shadow var(--transition-normal), border-color var(--transition-normal);
+  overflow: hidden;
+  position: relative;
+}
+
+.card-container:hover {
+  box-shadow: var(--shadow-card-hover);
+  border-color: var(--border-medium);
+}
+
+.card-header {
+  padding: 32px 32px 16px 32px;
+}
+
+.card-body {
+  padding: 16px 32px 32px 32px;
+}
+
+.card-footer {
+  padding: 16px 32px;
+  background: rgba(0, 0, 0, 0.15);
+  border-top: 1px solid var(--border-subtle);
+}
+
+@media (max-width: 640px) {
+  .card-header {
+    padding: 24px 20px 12px 20px;
+  }
+  .card-body {
+    padding: 12px 20px 24px 20px;
+  }
+  .card-footer {
+    padding: 14px 20px;
+  }
+}
