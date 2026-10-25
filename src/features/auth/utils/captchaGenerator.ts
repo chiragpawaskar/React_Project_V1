@@ -28,7 +28,7 @@ export const captchaGenerator = {
   /**
    * Renders the captcha code onto an HTML5 canvas with realistic security noise
    */
-  renderToCanvas(canvas: HTMLCanvasElement, code: string, isDarkTheme = true): void {
+  renderToCanvas(canvas: HTMLCanvasElement, code: string, _isDark = false): void {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
@@ -38,78 +38,87 @@ export const captchaGenerator = {
     // Reset transform
     ctx.setTransform(1, 0, 0, 1, 0, 0);
 
-    // 1. Background gradient
-    const bgGrad = ctx.createLinearGradient(0, 0, width, height);
-    if (isDarkTheme) {
-      bgGrad.addColorStop(0, '#0f172a');
-      bgGrad.addColorStop(0.5, '#1e1b4b');
-      bgGrad.addColorStop(1, '#172554');
-    } else {
-      bgGrad.addColorStop(0, '#f1f5f9');
-      bgGrad.addColorStop(0.5, '#e0e7ff');
-      bgGrad.addColorStop(1, '#f8fafc');
-    }
-    ctx.fillStyle = bgGrad;
+    // 1. Clean textured background (light cream/gray)
+    ctx.fillStyle = '#f3f6f9';
     ctx.fillRect(0, 0, width, height);
 
-    // 2. Interference grid lines
+    // Subtle gradient overlay
+    const grad = ctx.createLinearGradient(0, 0, width, height);
+    grad.addColorStop(0, 'rgba(238, 242, 246, 0.9)');
+    grad.addColorStop(0.5, 'rgba(248, 250, 252, 0.7)');
+    grad.addColorStop(1, 'rgba(226, 232, 240, 0.85)');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, width, height);
+
+    // Border inner
+    ctx.strokeStyle = '#dbe3ea';
     ctx.lineWidth = 1;
-    for (let i = 0; i < 6; i++) {
+    ctx.strokeRect(0.5, 0.5, width - 1, height - 1);
+
+    // 2. Faint security wavy background grid
+    ctx.lineWidth = 0.8;
+    for (let i = 0; i < 4; i++) {
       ctx.beginPath();
-      ctx.strokeStyle = isDarkTheme
-        ? `rgba(99, 102, 241, ${0.15 + Math.random() * 0.2})`
-        : `rgba(99, 102, 241, ${0.1 + Math.random() * 0.15})`;
-      ctx.moveTo(Math.random() * width, Math.random() * height);
+      ctx.strokeStyle = `rgba(148, 163, 184, ${0.2 + Math.random() * 0.15})`;
+      ctx.moveTo(0, Math.random() * height);
       ctx.bezierCurveTo(
-        Math.random() * width,
+        width * 0.25,
         Math.random() * height,
-        Math.random() * width,
+        width * 0.75,
         Math.random() * height,
-        Math.random() * width,
+        width,
         Math.random() * height
       );
       ctx.stroke();
     }
 
-    // 3. Noise dots
-    for (let i = 0; i < 45; i++) {
-      ctx.fillStyle = isDarkTheme
-        ? `rgba(${120 + Math.random() * 135}, ${150 + Math.random() * 105}, 255, ${0.3 + Math.random() * 0.4})`
-        : `rgba(79, 70, 229, ${0.2 + Math.random() * 0.3})`;
+    // 3. Realistic security noise dots & speckles
+    for (let i = 0; i < 65; i++) {
+      const colors = ['#64748b', '#0284c7', '#16a34a', '#dc2626', '#9333ea', '#ca8a04'];
+      ctx.fillStyle = colors[Math.floor(Math.random() * colors.length)];
+      ctx.globalAlpha = 0.35 + Math.random() * 0.35;
       ctx.beginPath();
-      ctx.arc(Math.random() * width, Math.random() * height, Math.random() * 1.8, 0, Math.PI * 2);
+      ctx.arc(Math.random() * width, Math.random() * height, 0.6 + Math.random() * 1.4, 0, Math.PI * 2);
       ctx.fill();
     }
+    ctx.globalAlpha = 1.0;
 
-    // 4. Character rendering with jitter & rotation
+    // 4. Character rendering with jitter, distinctive colors, and angles
     const charList = code.split('');
     const charSpacing = width / (charList.length + 1);
-    const fonts = ['JetBrains Mono', 'Outfit', 'Courier New', 'Arial'];
+    const fonts = ['Plus Jakarta Sans', 'Arial', 'Georgia', 'Courier New', 'Verdana'];
 
-    const colorsDark = ['#38bdf8', '#818cf8', '#c084fc', '#f472b6', '#34d399', '#fbbf24'];
-    const colorsLight = ['#0284c7', '#4f46e5', '#7c3aed', '#db2777', '#059669', '#d97706'];
-    const palette = isDarkTheme ? colorsDark : colorsLight;
+    // Authentic corporate palette: Dark Green, Rust Orange, Deep Purple, Crimson Red, Navy, Emerald
+    const letterPalette = [
+      '#1b5e20', // deep green
+      '#b45309', // amber/brown
+      '#4a148c', // deep purple
+      '#b91c1c', // deep red
+      '#0f766e', // teal
+      '#15803d', // forest green
+      '#1d4ed8', // royal blue
+    ];
 
     charList.forEach((char, index) => {
       ctx.save();
 
-      const x = charSpacing * (index + 0.8);
-      const y = height / 2 + (Math.random() * 8 - 4);
-      const angle = (Math.random() * 30 - 15) * (Math.PI / 180);
-      const fontSize = 24 + Math.floor(Math.random() * 6);
+      const x = charSpacing * (index + 0.9);
+      const y = height / 2 + (Math.random() * 6 - 3);
+      const angle = (Math.random() * 24 - 12) * (Math.PI / 180);
+      const fontSize = 23 + Math.floor(Math.random() * 5);
       const fontName = fonts[Math.floor(Math.random() * fonts.length)];
 
       ctx.translate(x, y);
       ctx.rotate(angle);
 
-      ctx.font = `bold ${fontSize}px ${fontName}, monospace`;
-      ctx.fillStyle = palette[index % palette.length];
+      ctx.font = `bold ${fontSize}px ${fontName}, sans-serif`;
+      ctx.fillStyle = letterPalette[index % letterPalette.length];
       ctx.textBaseline = 'middle';
       ctx.textAlign = 'center';
 
-      // Subtle drop shadow for letters
-      ctx.shadowColor = isDarkTheme ? 'rgba(0, 0, 0, 0.7)' : 'rgba(0, 0, 0, 0.15)';
-      ctx.shadowBlur = 4;
+      // Slight noise shadow
+      ctx.shadowColor = 'rgba(0, 0, 0, 0.12)';
+      ctx.shadowBlur = 2;
       ctx.shadowOffsetX = 1;
       ctx.shadowOffsetY = 1;
 
@@ -118,12 +127,12 @@ export const captchaGenerator = {
       ctx.restore();
     });
 
-    // 5. Strike-through wavy line across characters
+    // 5. Fine interference line cutting across
     ctx.beginPath();
-    ctx.strokeStyle = isDarkTheme ? 'rgba(236, 72, 153, 0.4)' : 'rgba(236, 72, 153, 0.3)';
-    ctx.lineWidth = 1.5;
-    ctx.moveTo(10, height / 2 + (Math.random() * 10 - 5));
-    ctx.quadraticCurveTo(width / 2, height / 2 + (Math.random() * 20 - 10), width - 10, height / 2 + (Math.random() * 10 - 5));
+    ctx.strokeStyle = 'rgba(100, 116, 139, 0.3)';
+    ctx.lineWidth = 1;
+    ctx.moveTo(8, height * 0.4 + Math.random() * 10);
+    ctx.quadraticCurveTo(width * 0.5, height * 0.6 + Math.random() * 8, width - 8, height * 0.4 + Math.random() * 10);
     ctx.stroke();
   },
 

@@ -1,0 +1,307 @@
+.nse-login-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 36px 36px 28px 36px;
+  box-shadow: 0 12px 36px -6px rgba(11, 35, 65, 0.09), 0 0 0 1px rgba(226, 232, 240, 0.8);
+  width: 100%;
+  max-width: 440px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.nse-card-header {
+  margin-bottom: 24px;
+}
+
+.nse-card-subheading {
+  display: block;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #64748b;
+  margin-bottom: 2px;
+}
+
+.nse-card-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: #0b2341;
+  margin: 0;
+  line-height: 1.25;
+  letter-spacing: -0.3px;
+}
+
+.nse-accent-underline {
+  width: 46px;
+  height: 3.5px;
+  background-color: #f37021;
+  border-radius: 2px;
+  margin: 8px 0 14px 0;
+}
+
+.nse-card-description {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.825rem;
+  color: #475569;
+  line-height: 1.45;
+  margin: 0;
+}
+
+.nse-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.nse-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.nse-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background-color: #ffffff;
+  transition: all 0.2s ease;
+  height: 44px;
+}
+
+.nse-input-wrapper:hover {
+  border-color: #94a3b8;
+}
+
+.nse-input-wrapper:focus-within {
+  border-color: #0b3b82;
+  box-shadow: 0 0 0 3px rgba(11, 59, 130, 0.12);
+}
+
+.nse-input-wrapper.has-error {
+  border-color: #ef4444;
+  background-color: #fffbfa;
+}
+
+.nse-input-wrapper.has-error:focus-within {
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+}
+
+.nse-field-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 14px;
+  padding-right: 10px;
+  color: #64748b;
+  flex-shrink: 0;
+}
+
+.nse-input {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.9rem;
+  color: #0f172a;
+  padding-right: 14px;
+}
+
+.nse-input::placeholder {
+  color: #94a3b8;
+  font-weight: 400;
+}
+
+.nse-password-toggle {
+  background: none;
+  border: none;
+  padding: 0 12px;
+  cursor: pointer;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.15s ease;
+}
+
+.nse-password-toggle:hover {
+  color: #0b2341;
+}
+
+.nse-error-text {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #ef4444;
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding-left: 4px;
+}
+
+/* Captcha Box & Refresh */
+.nse-captcha-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.nse-captcha-box {
+  flex: 1;
+  background: #f1f5f9;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e2e8f0;
+  height: 52px;
+}
+
+.nse-captcha-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.nse-captcha-refresh-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  color: #0b3b82;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  flex-shrink: 0;
+}
+
+.nse-captcha-refresh-btn:hover {
+  background: #f0f4fa;
+  border-color: #0b3b82;
+  transform: rotate(30deg);
+}
+
+.nse-captcha-refresh-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Actions Row: Submit & Reset */
+.nse-actions-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 8px;
+}
+
+.nse-btn {
+  height: 44px;
+  border: none;
+  border-radius: 8px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.nse-btn:active {
+  transform: translateY(1px);
+}
+
+.nse-btn-submit {
+  background-color: #0f3b7d;
+  color: #ffffff;
+}
+
+.nse-btn-submit:hover {
+  background-color: #0a2d61;
+  box-shadow: 0 4px 12px rgba(15, 59, 125, 0.25);
+}
+
+.nse-btn-submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.nse-btn-reset {
+  background-color: #f37021;
+  color: #ffffff;
+}
+
+.nse-btn-reset:hover {
+  background-color: #df5f12;
+  box-shadow: 0 4px 12px rgba(243, 112, 33, 0.25);
+}
+
+/* Forgot Password */
+.nse-forgot-row {
+  display: flex;
+  justify-content: center;
+  margin-top: 6px;
+}
+
+.nse-forgot-link {
+  background: none;
+  border: none;
+  color: #0a58ca;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.nse-forgot-link:hover {
+  color: #053b88;
+}
+
+/* Demo quick test helper */
+.nse-quick-test-bar {
+  display: flex;
+  justify-content: center;
+  margin-top: 4px;
+  padding-top: 10px;
+  border-top: 1px dashed #e2e8f0;
+}
+
+.nse-quick-test-btn {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 4px 12px;
+  font-size: 0.725rem;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.nse-quick-test-btn:hover {
+  background: #f1f5f9;
+  color: #0b3b82;
+  border-color: #cbd5e1;
+}
+
+@media (max-width: 480px) {
+  .nse-login-card {
+    padding: 24px 20px;
+  }
+
+  .nse-card-title {
+    font-size: 1.25rem;
+  }
+}
