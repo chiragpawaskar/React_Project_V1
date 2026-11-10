@@ -8,7 +8,6 @@ import { authValidators } from '../utils/authValidators';
 import { useAuth } from '@/context/AuthContext';
 import { useToast } from '@/context/ToastContext';
 import type { CaptchaChallengeData, FormTouchedFields, FormValidationErrors, LoginCredentials } from '@/types';
-import './LoginForm.css';
 
 interface LoginFormProps {
   onSuccess?: () => void;
@@ -105,20 +104,20 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSuccess }) => {
   return (
     <form
       id="enterprise-login-form"
-      className={`login-form ${formShake ? 'animate-shake' : ''}`}
+      className={`flex flex-col gap-4.5 w-full ${formShake ? 'animate-[shake_0.5s_ease-in-out]' : ''}`}
       onSubmit={handleSubmit}
       noValidate
     >
       {/* Demo Credentials Quick-Fill Bar */}
-      <div className="demo-credentials-bar">
-        <div className="demo-badge">
+      <div className="flex items-center justify-between p-2.5 sm:px-3.5 bg-indigo-500/10 border border-dashed border-indigo-500/35 rounded-xl text-[0.813rem] text-[var(--text-secondary)]">
+        <div className="inline-flex items-center gap-1 font-semibold text-indigo-400">
           <Sparkles size={14} />
           <span>Evaluation Mode</span>
         </div>
         <button
           type="button"
           onClick={handleFillDemo}
-          className="demo-fill-btn"
+          className="text-[0.781rem] font-semibold text-indigo-400 bg-indigo-500/15 px-2.5 py-1 rounded-md transition-all hover:bg-indigo-500 hover:text-white cursor-pointer"
           title="Autofill standard test credentials"
         >
           Auto-fill Demo Data
@@ -192,18 +191,19 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSuccess }) => {
       />
 
       {/* Remember Me & Privacy */}
-      <div className="login-form-options">
-        <label className="remember-me-checkbox">
+      <div className="flex items-center justify-between text-[0.844rem] -mt-1">
+        <label className="flex items-center gap-2 cursor-pointer select-none text-[var(--text-secondary)]">
           <input
             id="remember-me-checkbox"
             type="checkbox"
             checked={credentials.rememberMe}
             onChange={(e) => handleInputChange('rememberMe', e.target.checked)}
             disabled={isLoading}
+            className="w-4 h-4 rounded accent-indigo-500 cursor-pointer"
           />
           <span>Remember workstation</span>
         </label>
-        <span style={{ fontSize: '0.781rem', color: 'var(--text-tertiary)' }}>
+        <span className="text-[0.781rem] text-[var(--text-tertiary)]">
           AES-256 Protected
         </span>
       </div>
@@ -222,12 +222,12 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSuccess }) => {
       </Button>
 
       {/* Enterprise Security Badges */}
-      <div className="security-assurance-box">
-        <div className="security-badge-item">
+      <div className="flex items-center justify-center gap-4 pt-3.5 border-t border-white/10 text-[var(--text-tertiary)] text-xs">
+        <div className="flex items-center gap-1.5">
           <ShieldCheck size={14} color="var(--accent-emerald)" />
           <span>SOC 2 Type II Certified</span>
         </div>
-        <div className="security-badge-item">
+        <div className="flex items-center gap-1.5">
           <KeyRound size={14} color="var(--brand-primary)" />
           <span>FIPS 140-3 Compliant</span>
         </div>

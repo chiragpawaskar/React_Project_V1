@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Eye, EyeOff, AlertCircle } from 'lucide-react';
-import './Input.css';
 
 export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
   label?: string;
@@ -53,22 +52,21 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     };
 
     return (
-      <div className={`input-group ${className}`}>
+      <div className={`flex flex-col gap-1.5 w-full relative mb-1 ${className}`}>
         {(label || actionLabel) && (
-          <div className="input-label-row">
+          <div className="flex items-center justify-between">
             {label && (
-              <label htmlFor={inputId} className="input-label">
+              <label htmlFor={inputId} className="text-[0.844rem] font-medium text-[var(--text-secondary)] flex items-center gap-1 transition-colors">
                 {label}
-                {isRequired && <span className="input-required-star" aria-hidden="true">*</span>}
+                {isRequired && <span className="text-rose-500" aria-hidden="true">*</span>}
               </label>
             )}
             {actionLabel && (
               <button
                 type="button"
                 onClick={onActionClick}
-                className="input-action-btn-text"
+                className="text-[0.813rem] text-indigo-500 font-medium hover:underline cursor-pointer"
                 tabIndex={-1}
-                style={{ fontSize: '0.813rem', color: 'var(--brand-primary)', fontWeight: 500 }}
               >
                 {actionLabel}
               </button>
@@ -77,9 +75,23 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         )}
 
         <div
-          className={`input-wrapper ${isFocused ? 'focused' : ''} ${error ? 'has-error' : ''} ${disabled ? 'disabled' : ''}`}
+          className={`relative flex items-center w-full bg-[var(--bg-input)] rounded-xl border transition-all duration-150 overflow-hidden ${
+            disabled ? 'opacity-60 cursor-not-allowed' : ''
+          } ${
+            error
+              ? 'border-rose-500 ring-3 ring-rose-500/25'
+              : isFocused
+              ? 'border-indigo-500 bg-[var(--bg-input-focus)] ring-3 ring-indigo-500/25'
+              : 'border-white/12 hover:border-white/25 hover:bg-[var(--bg-input-focus)]'
+          }`}
         >
-          {startIcon && <div className="input-start-icon">{startIcon}</div>}
+          {startIcon && (
+            <div className={`flex items-center justify-center pl-3.5 transition-colors pointer-events-none ${
+              error ? 'text-rose-500' : isFocused ? 'text-indigo-500' : 'text-[var(--text-tertiary)]'
+            }`}>
+              {startIcon}
+            </div>
+          )}
 
           <input
             ref={ref}
@@ -89,17 +101,17 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
             disabled={disabled}
             onFocus={handleFocus}
             onBlur={handleBlur}
-            className="input-field"
+            className="flex-1 w-full px-3.5 py-3 text-[0.938rem] text-[var(--text-primary)] bg-transparent border-none outline-none font-sans placeholder:text-[var(--text-tertiary)] placeholder:opacity-70 disabled:cursor-not-allowed"
             aria-invalid={!!error}
             aria-describedby={error ? `${inputId}-error` : helperText ? `${inputId}-helper` : undefined}
             {...rest}
           />
 
-          <div className="input-end-actions">
+          <div className="flex items-center pr-3 gap-2">
             {isPasswordType && (
               <button
                 type="button"
-                className="input-action-btn"
+                className="flex items-center justify-center text-[var(--text-tertiary)] p-1 rounded-md transition-colors hover:text-[var(--text-primary)] hover:bg-white/10 cursor-pointer"
                 onClick={() => setShowPassword((prev) => !prev)}
                 aria-label={showPassword ? 'Hide password' : 'Show password'}
                 tabIndex={-1}
@@ -112,14 +124,14 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         </div>
 
         {error && (
-          <div id={`${inputId}-error`} className="input-error-msg" role="alert">
+          <div id={`${inputId}-error`} className="flex items-center gap-1.5 text-[0.813rem] text-rose-500 animate-[fadeIn_0.2s_ease-in-out]" role="alert">
             <AlertCircle size={14} />
             <span>{error}</span>
           </div>
         )}
 
         {!error && helperText && (
-          <div id={`${inputId}-helper`} className="input-helper-msg">
+          <div id={`${inputId}-helper`} className="text-[0.813rem] text-[var(--text-tertiary)]">
             {helperText}
           </div>
         )}

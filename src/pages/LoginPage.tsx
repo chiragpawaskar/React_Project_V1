@@ -15,7 +15,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSuccess }) => {
 
   return (
     <AuthLayout>
-      <div className="nse-portal-cards-wrapper">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-7 w-full justify-center items-stretch max-w-[460px] md:max-w-none mx-auto">
         <NseLoginForm
           onSuccess={onSuccess}
           onForgotPasswordClick={() => setForgotPasswordOpen(true)}
