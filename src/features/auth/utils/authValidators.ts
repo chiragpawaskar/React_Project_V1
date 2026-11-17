@@ -88,8 +88,10 @@ export const authValidators = {
   validateLoginForm(credentials: LoginCredentials, expectedCaptchaCode: string): FormValidationErrors {
     const errors: FormValidationErrors = {};
 
-    const usernameError = this.validateUsername(credentials.username);
-    if (usernameError) errors.username = usernameError;
+    if (credentials.username !== undefined && credentials.username.trim().length > 0) {
+      const usernameError = this.validateUsername(credentials.username);
+      if (usernameError) errors.username = usernameError;
+    }
 
     const emailError = this.validateEmail(credentials.email);
     if (emailError) errors.email = emailError;

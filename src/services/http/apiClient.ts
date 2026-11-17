@@ -14,9 +14,11 @@ class ApiClient {
       const { username, email, password, captchaAnswer } = payload;
 
       // Realistic mock checks
-      if (!username || !email || !password || !captchaAnswer) {
+      if (!email || !password || !captchaAnswer) {
         throw new Error('All authentication fields including security captcha are required.');
       }
+
+      const resolvedUsername = String(username || (email as string).split('@')[0] || 'User');
 
       // Successful simulated auth response
       return {
@@ -25,7 +27,7 @@ class ApiClient {
           token: 'eyJhGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.enterprise.' + Math.random().toString(36).substring(2),
           user: {
             id: 'usr_' + Math.random().toString(36).substring(2, 9),
-            username: String(username),
+            username: resolvedUsername,
             email: String(email),
             role: 'security_engineer' as const,
             avatarUrl: `https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80`,

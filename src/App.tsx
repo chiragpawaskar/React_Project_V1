@@ -1,5 +1,4 @@
 import React from 'react';
-import { ThemeProvider } from '@/context/ThemeContext';
 import { ToastProvider } from '@/context/ToastContext';
 import { AuthProvider, useAuth } from '@/context/AuthContext';
 import { ToastContainer } from '@/components/common/Toast/ToastContainer';
@@ -19,13 +18,11 @@ const AppContent: React.FC = () => {
 
 export const App: React.FC = () => {
   return (
-    <ThemeProvider>
-      <ToastProvider>
-        <AuthProvider>
-          <AppContent />
-        </AuthProvider>
-      </ToastProvider>
-    </ThemeProvider>
+    <ToastProvider>
+      <AuthProvider>
+        <AppContent />
+      </AuthProvider>
+    </ToastProvider>
   );
 };
 

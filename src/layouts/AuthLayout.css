@@ -1,0 +1,51 @@
+.nse-auth-page-root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #e3eefb 0%, #ebf3fc 45%, #f4f8fe 100%);
+  position: relative;
+  overflow-x: hidden;
+}
+
+.nse-auth-main {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 56px 32px 72px 32px;
+  width: 100%;
+}
+
+.nse-cards-center-container {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 920px;
+  display: flex;
+  justify-content: center;
+}
+
+.nse-portal-cards-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  width: 100%;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 12px 36px -6px rgba(11, 35, 65, 0.09), 0 0 0 1px rgba(226, 232, 240, 0.8);
+  overflow: hidden;
+  align-items: stretch;
+}
+
+@media (max-width: 920px) {
+  .nse-portal-cards-wrapper {
+    grid-template-columns: 1fr;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .nse-auth-main {
+    padding: 32px 16px;
+  }
+}

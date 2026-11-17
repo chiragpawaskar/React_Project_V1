@@ -3,7 +3,6 @@ import type { UserProfile } from '@/types';
 
 const TOKEN_KEY = 'auth_access_token';
 const USER_KEY = 'auth_user_session';
-const THEME_KEY = 'app_theme_preference';
 
 export const tokenService = {
   getToken(): string | null {
@@ -33,14 +32,6 @@ export const tokenService = {
   removeUser(): void {
     storageService.removeItem(USER_KEY, 'localStorage');
     storageService.removeItem(USER_KEY, 'sessionStorage');
-  },
-
-  getSavedTheme(): 'dark' | 'light' {
-    return storageService.getItem<'dark' | 'light'>(THEME_KEY) || 'dark';
-  },
-
-  setSavedTheme(theme: 'dark' | 'light'): void {
-    storageService.setItem(THEME_KEY, theme);
   },
 
   clearSession(): void {

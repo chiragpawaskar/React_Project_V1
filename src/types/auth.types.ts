@@ -9,7 +9,7 @@ export interface UserProfile {
 }
 
 export interface LoginCredentials {
-  username: string;
+  username?: string;
   email: string;
   password: string;
   captchaAnswer: string;

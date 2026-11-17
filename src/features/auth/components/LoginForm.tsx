@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useCallback } from 'react';
-import { User, Mail, Lock, ShieldCheck, KeyRound, Sparkles, LockKeyhole } from 'lucide-react';
+import { Mail, Lock, ShieldCheck, KeyRound, Sparkles, LockKeyhole } from 'lucide-react';
 import { Input } from '@/components/common/Input/Input';
 import { Button } from '@/components/common/Button/Button';
 import { CaptchaChallenge } from './CaptchaChallenge';
@@ -8,6 +8,7 @@ import { authValidators } from '../utils/authValidators';
 import { useAuth } from '@/context/AuthContext';
 import { useToast } from '@/context/ToastContext';
 import type { CaptchaChallengeData, FormTouchedFields, FormValidationErrors, LoginCredentials } from '@/types';
+import './LoginForm.css';
 
 interface LoginFormProps {
   onSuccess?: () => void;
@@ -18,7 +19,6 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSuccess }) => {
   const toast = useToast();
 
   const [credentials, setCredentials] = useState<LoginCredentials>({
-    username: '',
     email: '',
     password: '',
     captchaAnswer: '',
@@ -55,14 +55,12 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSuccess }) => {
   const handleFillDemo = () => {
     if (!currentCaptcha) return;
     setCredentials({
-      username: 'alex.mercer',
       email: 'alex.mercer@enterprise.io',
       password: 'Nexus#Secure2026!',
       captchaAnswer: currentCaptcha.code,
       rememberMe: true,
     });
     setTouched({
-      username: true,
       email: true,
       password: true,
       captchaAnswer: true,
@@ -75,7 +73,6 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSuccess }) => {
 
     // Mark all fields as touched
     setTouched({
-      username: true,
       email: true,
       password: true,
       captchaAnswer: true,
@@ -104,43 +101,27 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSuccess }) => {
   return (
     <form
       id="enterprise-login-form"
-      className={`flex flex-col gap-4.5 w-full ${formShake ? 'animate-[shake_0.5s_ease-in-out]' : ''}`}
+      className={`login-form ${formShake ? 'animate-shake' : ''}`}
       onSubmit={handleSubmit}
       noValidate
     >
       {/* Demo Credentials Quick-Fill Bar */}
-      <div className="flex items-center justify-between p-2.5 sm:px-3.5 bg-indigo-500/10 border border-dashed border-indigo-500/35 rounded-xl text-[0.813rem] text-[var(--text-secondary)]">
-        <div className="inline-flex items-center gap-1 font-semibold text-indigo-400">
+      <div className="demo-credentials-bar">
+        <div className="demo-badge">
           <Sparkles size={14} />
           <span>Evaluation Mode</span>
         </div>
         <button
           type="button"
           onClick={handleFillDemo}
-          className="text-[0.781rem] font-semibold text-indigo-400 bg-indigo-500/15 px-2.5 py-1 rounded-md transition-all hover:bg-indigo-500 hover:text-white cursor-pointer"
+          className="demo-fill-btn"
           title="Autofill standard test credentials"
         >
           Auto-fill Demo Data
         </button>
       </div>
 
-      {/* 1. Username Field */}
-      <Input
-        id="login-username"
-        name="username"
-        label="Username / Enterprise ID"
-        placeholder="e.g. alex.mercer"
-        isRequired
-        value={credentials.username}
-        onChange={(e) => handleInputChange('username', e.target.value)}
-        onBlur={() => handleBlur('username')}
-        error={touched.username ? errors.username : undefined}
-        startIcon={<User size={18} />}
-        disabled={isLoading}
-        autoComplete="username"
-      />
-
-      {/* 2. Corporate Email Field */}
+      {/* 1. Corporate Email Field */}
       <Input
         id="login-email"
         name="email"
@@ -157,7 +138,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSuccess }) => {
         autoComplete="email"
       />
 
-      {/* 3. Password Field with Strength Meter */}
+      {/* 2. Password Field with Strength Meter */}
       <div>
         <Input
           id="login-password"
@@ -181,7 +162,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSuccess }) => {
         <PasswordStrengthMeter strength={passwordStrength} password={credentials.password} />
       </div>
 
-      {/* 4. Captcha Verification Challenge */}
+      {/* 3. Captcha Verification Challenge */}
       <CaptchaChallenge
         value={credentials.captchaAnswer}
         onChange={(val) => handleInputChange('captchaAnswer', val)}
@@ -191,19 +172,18 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSuccess }) => {
       />
 
       {/* Remember Me & Privacy */}
-      <div className="flex items-center justify-between text-[0.844rem] -mt-1">
-        <label className="flex items-center gap-2 cursor-pointer select-none text-[var(--text-secondary)]">
+      <div className="login-form-options">
+        <label className="remember-me-checkbox">
           <input
             id="remember-me-checkbox"
             type="checkbox"
             checked={credentials.rememberMe}
             onChange={(e) => handleInputChange('rememberMe', e.target.checked)}
             disabled={isLoading}
-            className="w-4 h-4 rounded accent-indigo-500 cursor-pointer"
           />
           <span>Remember workstation</span>
         </label>
-        <span className="text-[0.781rem] text-[var(--text-tertiary)]">
+        <span style={{ fontSize: '0.781rem', color: 'var(--text-tertiary)' }}>
           AES-256 Protected
         </span>
       </div>
@@ -222,12 +202,12 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSuccess }) => {
       </Button>
 
       {/* Enterprise Security Badges */}
-      <div className="flex items-center justify-center gap-4 pt-3.5 border-t border-white/10 text-[var(--text-tertiary)] text-xs">
-        <div className="flex items-center gap-1.5">
+      <div className="security-assurance-box">
+        <div className="security-badge-item">
           <ShieldCheck size={14} color="var(--accent-emerald)" />
           <span>SOC 2 Type II Certified</span>
         </div>
-        <div className="flex items-center gap-1.5">
+        <div className="security-badge-item">
           <KeyRound size={14} color="var(--brand-primary)" />
           <span>FIPS 140-3 Compliant</span>
         </div>

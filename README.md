@@ -5,15 +5,14 @@ A production-ready, enterprise-grade authentication portal built with **React**,
 ## 🚀 Key Features
 
 - **Enterprise Security Inputs**:
-  - **Username / Enterprise ID**: Format validation with minimum length enforcement.
   - **Corporate Email**: RFC-compliant business email verification.
   - **Account Password**: Real-time password strength meter (Weak $\rightarrow$ Strong) evaluating length, mixed case, numbers, and symbols, plus show/hide visibility toggle.
   - **Security Verification Captcha (Anti-Bot V3)**: Dynamic HTML5 Canvas distortion rendering with noise dots and bezier curves, refresh trigger, and accessible Web Speech API audio readout.
 - **Evaluation Mode**: One-click **Auto-fill Demo Data** button for quick verification of the authentication flow.
-- **Session & State Management**: Complete `AuthContext`, `ThemeContext` (Dark/Light), and `ToastContext` with safe multi-tier Local/Session Storage fallback.
-- **Modern Hybrid Styling System**:
-  - Tailwind CSS v4 integrated with Vite for fast, utility-first styling.
-  - Curated design tokens (`src/styles/variables.css`) and smooth micro-animations.
+- **Session & State Management**: Complete `AuthContext` and `ToastContext` with safe multi-tier Local/Session Storage fallback.
+- **Enterprise Design System**:
+  - Rich glassmorphism with ambient glowing mesh gradient effects.
+  - Zero Tailwind dependency — 100% curated CSS tokens and smooth micro-animations.
   - Mobile-responsive layout supporting handheld devices and desktops.
 - **Authenticated Dashboard**: Seamless transition to the enterprise dashboard displaying assigned roles, token inspect viewer, and session sign-out.
 
@@ -27,7 +26,7 @@ src/
 ├── components/
 │   └── common/              # Atomic UI components (Button, Input, Card, Toast)
 ├── config/                  # App configurations
-├── context/                 # AuthContext, ThemeContext, ToastContext
+├── context/                 # AuthContext, ToastContext
 ├── features/
 │   └── auth/                # Auth feature domain
 │       ├── api/             # Simulated enterprise authentication endpoints

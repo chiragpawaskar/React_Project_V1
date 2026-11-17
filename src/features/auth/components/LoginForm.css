@@ -1,0 +1,94 @@
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: 100%;
+}
+
+.login-form-options {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.844rem;
+  margin-top: -4px;
+}
+
+.remember-me-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+  color: var(--text-secondary);
+}
+
+.remember-me-checkbox input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  accent-color: var(--brand-primary);
+  cursor: pointer;
+}
+
+.forgot-password-link {
+  color: var(--text-accent);
+  font-weight: 500;
+  transition: color var(--transition-fast);
+}
+
+.forgot-password-link:hover {
+  color: var(--brand-primary);
+  text-decoration: underline;
+}
+
+.demo-credentials-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: rgba(99, 102, 241, 0.08);
+  border: 1px dashed rgba(99, 102, 241, 0.35);
+  border-radius: var(--radius-md);
+  font-size: 0.813rem;
+  color: var(--text-secondary);
+}
+
+.demo-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 600;
+  color: var(--brand-primary);
+}
+
+.demo-fill-btn {
+  font-size: 0.781rem;
+  font-weight: 600;
+  color: var(--brand-primary);
+  background: rgba(99, 102, 241, 0.15);
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+}
+
+.demo-fill-btn:hover {
+  background: rgba(99, 102, 241, 0.25);
+  color: #ffffff;
+}
+
+.security-assurance-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-subtle);
+  color: var(--text-tertiary);
+  font-size: 0.75rem;
+}
+
+.security-badge-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
